@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Guess the Number Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Mobile scaling -->
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -27,19 +28,20 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 15px;
     }
 
     .game-container {
       background: rgba(0, 0, 0, 0.6);
-      padding: 30px;
+      padding: 25px;
       border-radius: 15px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      width: 350px;
+      width: 100%;
+      max-width: 350px;
       text-align: center;
-      position: relative;
     }
 
-    h1 {
+    h1, h2 {
       margin-bottom: 15px;
     }
 
@@ -52,8 +54,9 @@
     }
 
     input {
-      width: 80%;
+      width: 100%;
       text-align: center;
+      box-sizing: border-box;
     }
 
     button {
@@ -61,6 +64,7 @@
       color: white;
       cursor: pointer;
       transition: 0.3s;
+      width: 100%;
     }
 
     button:hover {
@@ -88,7 +92,7 @@
       background-color: #3d8b40;
     }
 
-    /* Simple animations */
+    /* Animations */
     .win {
       animation: bounce 0.7s ease;
       color: #00ff00;
@@ -110,6 +114,27 @@
       25% { transform: translateX(-5px); }
       50% { transform: translateX(5px); }
       75% { transform: translateX(-5px); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      header, footer {
+        font-size: 16px;
+        padding: 10px;
+      }
+
+      .game-container {
+        padding: 20px;
+      }
+
+      select, input, button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+
+      #message {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -206,6 +231,13 @@
       document.getElementById("attempts").textContent = "Attempts: 0 / " + maxAttempts;
       document.getElementById("playAgain").style.display = "none";
     }
+
+    // Press Enter to submit
+    document.getElementById("guessInput").addEventListener("keydown", function(event) {
+      if(event.key === "Enter") {
+        checkGuess();
+      }
+    });
 
     // Initialize difficulty
     setDifficulty();
